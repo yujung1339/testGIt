@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class MyPage extends JFrame {
     private JButton updateButton;
-//..
+//.....
     public MyPage() {
         setTitle("마이페이지");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //창을 닫을때 프로그램을 종료하도록 설정하는 메서드
