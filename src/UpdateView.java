@@ -56,7 +56,7 @@ public class UpdateView extends JFrame implements ActionListener {
         // 패널 통째로 프레임에 추가하기
         add(panel,BorderLayout.NORTH);
         add(panel2,BorderLayout.SOUTH);
-
+//코드추가
         setVisible(true);
     }
 
