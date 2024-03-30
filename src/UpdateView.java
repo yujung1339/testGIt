@@ -18,8 +18,6 @@ public class UpdateView extends JFrame implements ActionListener {
         // FlowLayout 객체 전달하기
         setLayout(new BorderLayout());
 
-        //안녕하세요
-
         // "ID: "라는 JLabel 생성
         JLabel LabelId = new JLabel("아이디: ");
         JLabel LabelName = new JLabel("이름: ");
