@@ -58,6 +58,8 @@ public class UpdateView extends JFrame implements ActionListener {
         add(panel2,BorderLayout.SOUTH);
 //코드추가
         setVisible(true);
+        
+        //유정아 안녕
     }
 
     // run 했을 때 실행 순서가 시작되는 main 메소드
