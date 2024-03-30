@@ -84,7 +84,6 @@ public class UpdateView extends JFrame implements ActionListener {
             inputId.setText("");
             inputName.setText("");
             inputPw.setText("");
-            //..
 
         }
     }
