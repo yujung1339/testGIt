@@ -11,22 +11,43 @@ public class UpdateView extends JFrame implements ActionListener {
 
     // 생성자
     public UpdateView() {
-        setSize(500, 300);
-        setLocation(100, 100);
-        setDefaultCloseOperation(EXIT_ON_CLOSE); //JFrame이 닫힐 때 프로그램을 종료하도록 설정하는 메서드
-
-        // FlowLayout 객체 전달하기
+        setSize(500, 200);
+        setLocationRelativeTo(null); // 화면 가운데에 위치하도록 설정
+        setDefaultCloseOperation(EXIT_ON_CLOSE); // JFrame이 닫힐 때 프로그램을 종료하도록 설정하는 메서드
         setLayout(new BorderLayout());
 
-        // "ID: "라는 JLabel 생성
-        JLabel LabelId = new JLabel("아이디: ");
-        JLabel LabelName = new JLabel("이름: ");
-        JLabel LabelPw = new JLabel("비밀번호: ");
+        JLabel title = new JLabel("마이페이지",JLabel.CENTER);
 
-        // 문자열을 입력할 수 있는 JTextField 생성
         inputId = new JTextField(10);
         inputName = new JTextField(10);
         inputPw = new JTextField(10);
+
+        // "ID: "라는 JLabel 생성
+        JPanel idPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        // 패널에 UI를 추가
+        idPanel.add(new JLabel("아이디: "));
+        idPanel.add(inputId);
+
+        JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        namePanel.add( new JLabel("이름: "));
+        namePanel.add(inputName);
+
+
+        JPanel pwPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        pwPanel.add(new JLabel("비밀번호: "));
+        pwPanel.add(inputPw);
+
+        JPanel formPanel = new JPanel();
+        formPanel.setLayout(new GridLayout(3,1));
+        formPanel.add(idPanel);
+        formPanel.add(namePanel);
+        formPanel.add(pwPanel);
+
+        JPanel contentPanel = new JPanel(new FlowLayout());
+        contentPanel.add(formPanel);
+
+
+        // 문자열을 입력할 수 있는 JTextField 생성
 
         // 전송버튼
         JButton update = new JButton("수정");
@@ -39,27 +60,21 @@ public class UpdateView extends JFrame implements ActionListener {
         delete.addActionListener(this);
 
         // 패널 객체를 생성해서
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(3,2));
-        panel.setSize(800,500);
-        JPanel panel2 = new JPanel();
-        panel2.setLayout(new GridLayout(1,2));
-        // 패널에 UI를 추가하고
-        panel.add(LabelId);
-        panel.add(inputId);
-        panel.add(LabelName);
-        panel.add(inputName);
-        panel.add(LabelPw);
-        panel.add(inputPw);
-        panel2.add(update);
-        panel2.add(delete);
+        JPanel buttonPanel = new JPanel(new FlowLayout());// FlowLayout 사용하여 버튼들이 화면 가운데에 위치하도록 설정
+
+        // 버튼 패널에 버튼 추가
+        buttonPanel.add(update);
+        buttonPanel.add(delete);
+
+        add(title,BorderLayout.NORTH);
         // 패널 통째로 프레임에 추가하기
-        add(panel,BorderLayout.NORTH);
-        add(panel2,BorderLayout.SOUTH);
-//코드추가
+        add(contentPanel,BorderLayout.CENTER);
+
+        // 버튼 패널 프레임에 추가하기
+        add(buttonPanel,BorderLayout.SOUTH);
+
+
         setVisible(true);
-        
-        //유정아 안녕
     }
 
     // run 했을 때 실행 순서가 시작되는 main 메소드
@@ -84,7 +99,6 @@ public class UpdateView extends JFrame implements ActionListener {
             inputId.setText("");
             inputName.setText("");
             inputPw.setText("");
-// 커밋 작동
         }
     }
 }
