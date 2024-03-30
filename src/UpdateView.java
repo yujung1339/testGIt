@@ -1,6 +1,9 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import javax.swing.*;
 
 public class UpdateView extends JFrame implements ActionListener {
@@ -16,7 +19,7 @@ public class UpdateView extends JFrame implements ActionListener {
         setDefaultCloseOperation(EXIT_ON_CLOSE); // JFrame이 닫힐 때 프로그램을 종료하도록 설정하는 메서드
         setLayout(new BorderLayout());
 
-        JLabel title = new JLabel("마이페이지",JLabel.CENTER);
+        JLabel title = new JLabel("마이페이지", JLabel.CENTER);
 
         inputId = new JTextField(10);
         inputName = new JTextField(10);
@@ -29,7 +32,7 @@ public class UpdateView extends JFrame implements ActionListener {
         idPanel.add(inputId);
 
         JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        namePanel.add( new JLabel("이름: "));
+        namePanel.add(new JLabel("이름: "));
         namePanel.add(inputName);
 
 
@@ -38,7 +41,7 @@ public class UpdateView extends JFrame implements ActionListener {
         pwPanel.add(inputPw);
 
         JPanel formPanel = new JPanel();
-        formPanel.setLayout(new GridLayout(3,1));
+        formPanel.setLayout(new GridLayout(3, 1));
         formPanel.add(idPanel);
         formPanel.add(namePanel);
         formPanel.add(pwPanel);
@@ -66,12 +69,12 @@ public class UpdateView extends JFrame implements ActionListener {
         buttonPanel.add(update);
         buttonPanel.add(delete);
 
-        add(title,BorderLayout.NORTH);
+        add(title, BorderLayout.NORTH);
         // 패널 통째로 프레임에 추가하기
-        add(contentPanel,BorderLayout.CENTER);
+        add(contentPanel, BorderLayout.CENTER);
 
         // 버튼 패널 프레임에 추가하기
-        add(buttonPanel,BorderLayout.SOUTH);
+        add(buttonPanel, BorderLayout.SOUTH);
 
 
         setVisible(true);
@@ -92,13 +95,65 @@ public class UpdateView extends JFrame implements ActionListener {
             String msgId = inputId.getText();
             String msgName = inputName.getText();
             String msgPw = inputPw.getText();
-            // JOptionPane을 통해 메시지 보여주기
-            JOptionPane.showMessageDialog(this, "아이디: " + msgId + "\n이름: " + msgName + "\n비밀번호: " + msgPw);
+            String url = "jdbc:mysql://localhost:3306/yujung";
+
+            String user = "root";
+            String password = "00000000";
+
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection con = DriverManager.getConnection(url, user, password);
+
+                String userId = msgId; // 업데이트할 사용자의 아이디
+                String newUsername = msgName; // 새로운 사용자 이름
+                String newPw = msgPw; // 새로운 비밀번호
+
+                String query = "UPDATE User SET userid = ?, username = ?, pw = ? WHERE userid = ?";
+                PreparedStatement pstmt = con.prepareStatement(query);
+                pstmt.setString(1, userId);
+                pstmt.setString(2, newUsername);
+                pstmt.setString(3, newPw);
+                pstmt.setString(4, userId);
+
+                int rowsAffected = pstmt.executeUpdate();
+
+                // JOptionPane을 통해 메시지 보여주기
+                if (rowsAffected == 1) {
+                    JOptionPane.showMessageDialog(this, "회원정보 수정이 완료되었습니다.");
+                } else {
+                    JOptionPane.showMessageDialog(this, "회원정보 수정에 실패하였습니다.");
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+
+
         } else if (command.equals("delete")) {
-            // 빈 문자열을 넣어주어서 삭제하기
-            inputId.setText("");
-            inputName.setText("");
-            inputPw.setText("");
+
+            String url = "jdbc:mysql://localhost:3306/yujung";
+            String user = "root";
+            String password = "00000000";
+
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection con = DriverManager.getConnection(url, user, password);
+
+                String msgId = inputId.getText();
+
+                String query = "DELETE FROM User WHERE userid = ?";
+                PreparedStatement pstmt = con.prepareStatement(query);
+                pstmt.setString(1, msgId);
+
+                int rowsAffected = pstmt.executeUpdate();
+                // JOptionPane을 통해 메시지 보여주기
+                if (rowsAffected == 1) {
+                    JOptionPane.showMessageDialog(this, "회원정보 삭제가 완료되었습니다.");
+                } else {
+                    JOptionPane.showMessageDialog(this, "회원정보 삭제에 실패하였습니다.");
+                }
+            } catch (Exception e3) {
+                e3.printStackTrace();
+            }
         }
     }
 }
