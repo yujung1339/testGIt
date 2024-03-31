@@ -14,7 +14,7 @@ public class UpdateView extends JFrame implements ActionListener {
 
     // 생성자
     public UpdateView() {
-        setSize(500, 200);
+        setSize(500, 300);
         setLocationRelativeTo(null); // 화면 가운데에 위치하도록 설정
         setDefaultCloseOperation(EXIT_ON_CLOSE); // JFrame이 닫힐 때 프로그램을 종료하도록 설정하는 메서드
         setLayout(new BorderLayout());
@@ -24,6 +24,15 @@ public class UpdateView extends JFrame implements ActionListener {
         inputId = new JTextField(10);
         inputName = new JTextField(10);
         inputPw = new JTextField(10);
+
+        // 이미지 출력 부분
+        ImageIcon imageIcon = new ImageIcon("img/mymelody.png");
+        Image image = imageIcon.getImage(); // Image 객체로 변환
+        Image newImage = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH); // 크기 조정
+        ImageIcon newImageIcon = new ImageIcon(newImage); // 조정된 이미지로 다시 ImageIcon 생성
+        JLabel imageLabel = new JLabel(newImageIcon); // 조정된 이미지를 담은 JLabel 생성
+        JPanel imagePanel = new JPanel();
+        imagePanel.add(imageLabel);
 
         // "ID: "라는 JLabel 생성
         JPanel idPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -41,16 +50,14 @@ public class UpdateView extends JFrame implements ActionListener {
         pwPanel.add(inputPw);
 
         JPanel formPanel = new JPanel();
-        formPanel.setLayout(new GridLayout(3, 1));
+        formPanel.setLayout(new GridLayout(4, 1));
+        formPanel.add(imagePanel);
         formPanel.add(idPanel);
         formPanel.add(namePanel);
         formPanel.add(pwPanel);
 
         JPanel contentPanel = new JPanel(new FlowLayout());
         contentPanel.add(formPanel);
-
-
-        // 문자열을 입력할 수 있는 JTextField 생성
 
         // 전송버튼
         JButton update = new JButton("수정");
@@ -70,15 +77,16 @@ public class UpdateView extends JFrame implements ActionListener {
         buttonPanel.add(delete);
 
         add(title, BorderLayout.NORTH);
+
         // 패널 통째로 프레임에 추가하기
         add(contentPanel, BorderLayout.CENTER);
 
         // 버튼 패널 프레임에 추가하기
         add(buttonPanel, BorderLayout.SOUTH);
 
-
         setVisible(true);
     }
+
 
     // run 했을 때 실행 순서가 시작되는 main 메소드
     public static void main(String[] args) {
