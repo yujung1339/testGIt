@@ -17,7 +17,7 @@ public class JDBC1 {
             pstmt = con.prepareStatement(que);
 
             pstmt.setString(1, "id1234");
-            pstmt.setString(2, "nameyujnug");
+            pstmt.setString(2, "name1234");
             pstmt.setString(3, "pw1234");
 
             int rowsAffected = pstmt.executeUpdate();

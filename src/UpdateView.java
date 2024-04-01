@@ -28,7 +28,7 @@ public class UpdateView extends JFrame implements ActionListener {
         // 이미지 출력 부분
         ImageIcon imageIcon = new ImageIcon("img/mymelody.png");
         Image image = imageIcon.getImage(); // Image 객체로 변환
-        Image newImage = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH); // 크기 조정
+        Image newImage = image.getScaledInstance(70, 50, Image.SCALE_SMOOTH); // 크기 조정
         ImageIcon newImageIcon = new ImageIcon(newImage); // 조정된 이미지로 다시 ImageIcon 생성
         JLabel imageLabel = new JLabel(newImageIcon); // 조정된 이미지를 담은 JLabel 생성
         JPanel imagePanel = new JPanel();
@@ -36,8 +36,7 @@ public class UpdateView extends JFrame implements ActionListener {
 
         // "ID: "라는 JLabel 생성
         JPanel idPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        // 패널에 UI를 추가
-        idPanel.add(new JLabel("아이디: "));
+        idPanel.add(new JLabel("아이디: ")); // 패널에 UI를 추가
         idPanel.add(inputId);
 
         JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -59,7 +58,7 @@ public class UpdateView extends JFrame implements ActionListener {
         JPanel contentPanel = new JPanel(new FlowLayout());
         contentPanel.add(formPanel);
 
-        // 전송버튼
+        // 수정버튼
         JButton update = new JButton("수정");
         update.setActionCommand("update");
         update.addActionListener(this);
@@ -103,8 +102,8 @@ public class UpdateView extends JFrame implements ActionListener {
             String msgId = inputId.getText();
             String msgName = inputName.getText();
             String msgPw = inputPw.getText();
-            String url = "jdbc:mysql://localhost:3306/yujung";
 
+            String url = "jdbc:mysql://localhost:3306/yujung";
             String user = "root";
             String password = "00000000";
 
